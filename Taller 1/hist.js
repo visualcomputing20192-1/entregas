@@ -10,10 +10,9 @@ function preload() {
 }
 
 function setup() {
-  hist = new Array(256);
-
-  for (i = 0; i <= 256; i++) {
-    histogram[i] = 0;
+  hist = [];
+  for (let i = 0; i < 256; i++) {
+    hist[i] = 0;
   }
 
   createCanvas(img.width * 3, img.height * 3);
@@ -42,7 +41,7 @@ function grayscale() {
     original.pixels[i + 2] = average;
   }
   original.updatePixels();
-  image(original, 0, img.height);
+  image(original, img.width, 0);
 }
 
 function histogram() {
@@ -52,25 +51,27 @@ function histogram() {
   original.loadPixels();
 
   for (let i = 0; i < length; i += 4) {
-    let average =
+    let average = (
       (original.pixels[i] + original.pixels[i + 1] + original.pixels[i + 2]) /
-      3;
+      3
+    ).toFixed(0);
+
     hist[average] += 1;
   }
 
-  image(img, img.width, 0);
   stroke(300, 100, 80);
-  push();
   translate(10, 0);
-  for (x = 0; x <= 256; x++) {
+  for (x = 0; x < 256; x++) {
     index = hist[x];
+    console.log(index);
 
-    y1 = int(map(index, 0, max(hist), img.height, img.height - 200));
+    y1 = img.height - (index * img.height) / max(hist);
     y2 = img.height;
-    xPos = map(x, 0, 256, 0, img.width - 20);
+
+    xPos = (img.width / 255) * x;
+
     line(img.width + xPos, y1, img.width + xPos, y2);
   }
-  pop();
 }
 
 function segmented() {
