@@ -35,5 +35,6 @@ Complete la tabla:
 
 2. Describa brevememente las referencias estudiadas y los posibles temas en los que le gustaría profundizar
 
-Verticalidad - Una línea vertical parece más larga que una horizontal de la misma extensión.
-Ilusion de Hering - La  figura de Hering, de 1861, en el que un haz de rectas provoca el efecto de curvar un par de rectas paralelas.
+##Verticalidad - Una línea vertical parece más larga que una horizontal de la misma extensión.
+
+##Ilusion de Hering - La  figura de Hering, de 1861, en el que un haz de rectas provoca el efecto de curvar un par de rectas paralelas.
