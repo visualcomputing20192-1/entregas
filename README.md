@@ -7,3 +7,4 @@
 
 *Entregas:*
 - Taller 1 (29/09/2019) (realizado en p5.js)
+- Taller 2 (10/13/2019) (realizado en p5.js)
