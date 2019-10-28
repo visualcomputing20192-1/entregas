@@ -109,12 +109,12 @@ void triangleRaster() {
             for(float l=j; l<=j+1; l+=0.5){
               p.set(k,l);
                
-              w1 = edgeFunction(v2,v3,new Vector(p.x()+0.5, p.y()+0.5))/area;
-              w2 = edgeFunction(v3,v1,new Vector(p.x()+0.5, p.y()+0.5))/area;
-              w3 = edgeFunction(v1,v2,new Vector(p.x()+0.5, p.y()+0.5))/area;
-              w12 = edgeFunction(v3,v2,new Vector(p.x()+0.5, p.y()+0.5))/area;
-              w22 = edgeFunction(v1,v3,new Vector(p.x()+0.5, p.y()+0.5))/area;
-              w32 = edgeFunction(v2,v1,new Vector(p.x()+0.5, p.y()+0.5))/area;
+              w1 = edgeFunction(v2,v3,new Vector(p.x()+0.25, p.y()+0.25))/area;
+              w2 = edgeFunction(v3,v1,new Vector(p.x()+0.25, p.y()+0.25))/area;
+              w3 = edgeFunction(v1,v2,new Vector(p.x()+0.25, p.y()+0.25))/area;
+              w12 = edgeFunction(v3,v2,new Vector(p.x()+0.25, p.y()+0.25))/area;
+              w22 = edgeFunction(v1,v3,new Vector(p.x()+0.25, p.y()+0.25))/area;
+              w32 = edgeFunction(v2,v1,new Vector(p.x()+0.25, p.y()+0.25))/area;
               float r = w1>w12 ? w1:w12;
               float g = w2>w22 ? w2:w22;
               float b = w3>w32 ? w3:w32;
@@ -134,7 +134,7 @@ void triangleRaster() {
           bt = bt/count;
           
           fill(rt*255, gt*255, bt*255);
-          square(p.x(), p.y(), 1);
+          square(p.x()+0.5, p.y()+0/5, 1);
           p.set(i,j);
         }
       }
