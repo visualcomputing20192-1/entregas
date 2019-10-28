@@ -23,7 +23,7 @@ boolean shadeHint = false;
 String renderer = P2D;
 
 // 4. Window dimension
-int dim = 9;
+int dim = 10;
 
 void settings() {
   size(int(pow(2, dim)), int(pow(2, dim)), renderer);
@@ -89,24 +89,53 @@ void triangleRaster() {
     
     for(int i=(int)-pow(2,n)/2; i<=(int)pow(2,n)/2;i++){
       for(int j=(int)-pow(2,n)/2; j<=(int)pow(2,n)/2; j++){
-         p.set(i,j);
+        p.set(i,j);
          
-          float w1 = edgeFunction(v2,v3,new Vector(p.x()+0.5, p.y()+0.5))/area;
-          float w2 = edgeFunction(v3,v1,new Vector(p.x()+0.5, p.y()+0.5))/area;
-          float w3 = edgeFunction(v1,v2,new Vector(p.x()+0.5, p.y()+0.5))/area;
-          float w12 = edgeFunction(v3,v2,new Vector(p.x()+0.5, p.y()+0.5))/area;
-          float w22 = edgeFunction(v1,v3,new Vector(p.x()+0.5, p.y()+0.5))/area;
-          float w32 = edgeFunction(v2,v1,new Vector(p.x()+0.5, p.y()+0.5))/area;
+        float w1 = edgeFunction(v2,v3,new Vector(p.x()+0.5, p.y()+0.5))/area;
+        float w2 = edgeFunction(v3,v1,new Vector(p.x()+0.5, p.y()+0.5))/area;
+        float w3 = edgeFunction(v1,v2,new Vector(p.x()+0.5, p.y()+0.5))/area;
+        float w12 = edgeFunction(v3,v2,new Vector(p.x()+0.5, p.y()+0.5))/area;
+        float w22 = edgeFunction(v1,v3,new Vector(p.x()+0.5, p.y()+0.5))/area;
+        float w32 = edgeFunction(v2,v1,new Vector(p.x()+0.5, p.y()+0.5))/area;
           
         if ((w1 >= 0 && w2 >= 0 && w3 >= 0) || 
             (w12 >= 0 && w22 >= 0 && w32 >= 0))
         { 
-          float r = w1>w12 ? w1:w12;
-          float g = w2>w22 ? w2:w22;
-          float b = w3>w32 ? w3:w32;
+          float rt = 0;
+          float gt = 0;
+          float bt = 0;
+          float count = 0;
+          for(float k=i; k<=i+1;k+=0.5){
+            for(float l=j; l<=j+1; l+=0.5){
+              p.set(k,l);
+               
+              w1 = edgeFunction(v2,v3,new Vector(p.x()+0.5, p.y()+0.5))/area;
+              w2 = edgeFunction(v3,v1,new Vector(p.x()+0.5, p.y()+0.5))/area;
+              w3 = edgeFunction(v1,v2,new Vector(p.x()+0.5, p.y()+0.5))/area;
+              w12 = edgeFunction(v3,v2,new Vector(p.x()+0.5, p.y()+0.5))/area;
+              w22 = edgeFunction(v1,v3,new Vector(p.x()+0.5, p.y()+0.5))/area;
+              w32 = edgeFunction(v2,v1,new Vector(p.x()+0.5, p.y()+0.5))/area;
+              float r = w1>w12 ? w1:w12;
+              float g = w2>w22 ? w2:w22;
+              float b = w3>w32 ? w3:w32;
+              
+              r = r<0 ? 0:r;
+              g = g<0 ? 0:g;
+              b = b<0 ? 0:b;
+              
+              rt += r;
+              gt += g;
+              bt += b;
+              count++;
+            }
+          } 
+          rt = rt/count;
+          gt = gt/count;
+          bt = bt/count;
           
-          fill(r*255, g*255, b*255);
-          square(p.x()+0.5, p.y()+0.5, 1); 
+          fill(rt*255, gt*255, bt*255);
+          square(p.x(), p.y(), 1);
+          p.set(i,j);
         }
       }
     }    
@@ -176,11 +205,11 @@ void keyPressed() {
   if (key == 'd')
     debug = !debug;
   if (key == '+') {
-    n = n < 7 ? n+1 : 2;
+    n = n < 9 ? n+1 : 2;
     node.setScaling(width/pow( 2, n));
   }
   if (key == '-') {
-    n = n >2 ? n-1 : 7;
+    n = n >2 ? n-1 : 9;
     node.setScaling(width/pow( 2, n));
       }
   if (key == 'r')
